@@ -121,51 +121,6 @@
     </div>
 
 
-    <script>
-        function addToCart(productName, price) {
-            // Добавьте код для добавления товара в корзину
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const item = { name: productName, price: price };
-            cart.push(item);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Товар "' + productName + '" добавлен в корзину за ' + price + ' долларов.');
-            
-            // Обновляем информацию о корзине
-            updateCartInfo();
-        }
-
-        function updateCartInfo() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartCount = cart.length;
-            const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
-            document.getElementById('cart-count').textContent = cartCount;
-            document.getElementById('total-price').textContent = totalPrice;
-             
-            // Отображаем выбранные товары в корзине
-             const cartDiv = document.getElementById('cart');
-            cartDiv.innerHTML = '<h2>Корзина</h2>';
-            cart.forEach((item, index) => {
-                const cartItemDiv = document.createElement('div');
-                cartItemDiv.className = 'cart-item';
-                cartItemDiv.innerHTML = `<p>${item.name}: $${item.price} <button onclick="removeFromCart(${index})">Удалить</button></p>`;
-                cartDiv.appendChild(cartItemDiv);
-            });
-        }
-
-        function removeFromCart(index) {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartInfo();
-        }
-
-        function clearCart() {
-            localStorage.removeItem('cart');
-            updateCartInfo(); // Обновляем информацию о корзине после очистки
-        }
-
-        // Вызываем функцию обновления информации о корзине при загрузке страницы
-        updateCartInfo();
-    </script>
+    
 </body>
 </html>
