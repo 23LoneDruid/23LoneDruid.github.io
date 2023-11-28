@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Товары</title>
+    <style>
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+            display: inline-block;
+        }
+        
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        #cart-info {
+            text-align: right;
+            margin: 10px;
+        }
+
+        #cart {
+            text-align: left;
+        }
+
+        .cart-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Товары</h1>
+
+    <div id="cart-info">
+        <p>Товаров в корзине: <span id="cart-count">0</span></p>
+        <p>Итоговая цена: $<span id="total-price">0</span></p>
+        <button onclick="clearCart()">Сбросить корзину</button>
+    </div>
+
+    <!-- Рюкзак -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/007/768_1024_2bd3/66465750299.jpg" alt="Рюкзак Outventure Creek 45" itemprop="image">
+        <h2>Рюкзак</h2>
+        <p>Цена: $50</p>
+        <button onclick="addToCart('Рюкзак', 50)">Добавить в корзину</button>
+    </div>
+
+    <!-- Треники -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/8ad/768_1024_a19a/78014700299.jpg" alt="Брюки мужские PUMA Ess Logo" itemprop="image">
+        <h2>Треники</h2>
+        <p>Цена: $30</p>
+        <button onclick="addToCart('Треники', 30)">Добавить в корзину</button>
+    </div>
+
+    <!-- Кроссовки -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/32f/768_1024_41b8/83614980299.jpg" alt="Кроссовки мужские PUMA Foreverrun Nitro" itemprop="image">
+        <h2>Кроссовки</h2>
+        <p>Цена: $60</p>
+        <button onclick="addToCart('Кроссовки', 60)">Добавить в корзину</button>
+    </div>
+
+    <!-- Гантеля -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/d65/768_1024_718b/75226920299.jpg" alt="Гантель наборная с дисками Torneo, 10 кг" itemprop="image">
+        <h2>Гантеля</h2>
+        <p>Цена: $10</p>
+        <button onclick="addToCart('Гантеля', 10)">Добавить в корзину</button>
+    </div>
+
+    <!-- Велосипед -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/fcd/768_1024_844f/74292100299.jpg" alt="Велосипед складной Stern Compact 2.0 20&quot;, 2023" itemprop="image">
+        <h2>Велосипед</h2>
+        <p>Цена: $200</p>
+        <button onclick="addToCart('Велосипед', 200)">Добавить в корзину</button>
+    </div>
+
+    <!-- Штанга -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/dde/768_1024_71a6/73832740299.jpg" alt="Гриф стальной 30х1200 мм Torneo" itemprop="image">
+        <h2>Штанга</h2>
+        <p>Цена: $30</p>
+        <button onclick="addToCart('Штанга', 30)">Добавить в корзину</button>
+    </div>
+
+    <!-- Пищевая добавка -->
+    <div class="product">
+        <img src="https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/nfs/nfs02948/v/11.jpg" alt="Natural Factors, Сырой органический 100% растительный белок, французская ваниль, 1,2 фунта (547,5 г)" itemprop="image">
+        <h2>Пищевая добавка</h2<p>Цена: $15</p>
+        <button onclick="addToCart('Пищевая добавка', 15)">Добавить в корзину</button>
+    </div>
+
+    <!-- Секундомер -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/0a0/768_1024_5de4/73480990299.jpg" alt="Секундомер Torneo" itemprop="image">
+        <h2>Секундомер</h2>
+        <p>Цена: $5</p>
+        <button onclick="addToCart('Секундомер', 5)">Добавить в корзину</button>
+    </div>
+
+    <!-- Коньки -->
+    <div class="product">
+        <img src="https://cdnkz.sportmaster.com/upload/mdm/media_content/resize/256/768_1024_e98e/53586030299.jpg" alt="Коньки хоккейные Bauer X-LS" itemprop="image">
+        <h2>Коньки</h2>
+        <p>Цена: $70</p>
+        <button onclick="addToCart('Коньки', 70)">Добавить в корзину</button>
+    </div>
+
+    <div id="cart">
+        <h2>Корзина</h2>
+        <!-- Здесь будут отображаться выбранные товары из корзины -->
+    </div>
+
+
+    <script>
+        function addToCart(productName, price) {
+            // Добавьте код для добавления товара в корзину
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const item = { name: productName, price: price };
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Товар "' + productName + '" добавлен в корзину за ' + price + ' долларов.');
+            
+            // Обновляем информацию о корзине
+            updateCartInfo();
+        }
+
+        function updateCartInfo() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.length;
+            const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+            document.getElementById('cart-count').textContent = cartCount;
+            document.getElementById('total-price').textContent = totalPrice;
+             
+            // Отображаем выбранные товары в корзине
+             const cartDiv = document.getElementById('cart');
+            cartDiv.innerHTML = '<h2>Корзина</h2>';
+            cart.forEach((item, index) => {
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.className = 'cart-item';
+                cartItemDiv.innerHTML = `<p>${item.name}: $${item.price} <button onclick="removeFromCart(${index})">Удалить</button></p>`;
+                cartDiv.appendChild(cartItemDiv);
+            });
+        }
+
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartInfo();
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            updateCartInfo(); // Обновляем информацию о корзине после очистки
+        }
+
+        // Вызываем функцию обновления информации о корзине при загрузке страницы
+        updateCartInfo();
+    </script>
+</body>
+</html>
